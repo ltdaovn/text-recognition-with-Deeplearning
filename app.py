@@ -50,12 +50,15 @@ def upload_file():
             return render_template('index.html', errors=errors)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file_path = (os.path.join(app.config['UPLOAD_FOLDER'], "av"+filename))
+            uuid.uuid4()
+            filename = (str(uuid.uuid4())+".png")
+            file_path = (os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file.save(file_path)
             img = cv2.imread(file_path)
             # print(img)
             #detect text tu hinh anh
             east,cut_arr = detect_east(img)
+            print (cut_arr)
             im = Image.fromarray(east)
             #save vao folder
             uuid.uuid4()
