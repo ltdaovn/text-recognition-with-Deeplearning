@@ -1,0 +1,71 @@
+<!doctype html>
+<title>Detect</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="/static/css/custom.css">
+<script src="https://kit.fontawesome.com/yourcode.js"></script>
+
+<body style="background-image: url('./static/1.jpg');">
+    <div class="container custom-bg-upload mb-5 mt-5">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
+                <h2 style="padding-top: 10px;">Ảnh đầu vào</h2>
+                <img src={{file_path}} alt="" style="width:400px;">
+
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
+                <h2 style="padding-top: 10px;">Phát hiện văn bản từ hình ảnh</h2>
+                <!-- hien thi anh detect -->
+                {%for i in range(num_cut)%}
+
+                <img class="img-fluid" width="400px" src={{filepath_cut_arr[i]}} alt=""></span>
+                {%endfor%}
+                <hr>
+                <hr>
+                <h2>Nhận dạng ký tự</h2>
+                <script>
+                    //text to speech
+                    function textToAudio(text) {
+                        let msg = text.replace(/ /g, ",").replace(/'/g, "").replace('[', '').replace(']', '').split(',');
+
+                        // let speech = new SpeechSynthesisUtterance();
+                        // speech.lang = "en-US";
+
+                        // speech.text = msg;
+                        // speech.volume = 1;
+                        // speech.rate = 1;
+                        // speech.pitch = 1;
+
+                        // window.speechSynthesis.speak(speech);
+
+                        for (i of msg) {
+                            console.log(i)
+                            let speech = new SpeechSynthesisUtterance();
+                            speech.lang = "en-US";
+
+                            speech.text = i;
+                            speech.volume = 1;
+                            speech.rate = 1;
+                            speech.pitch = 1;
+
+                            window.speechSynthesis.speak(speech);
+                        }
+                    }
+                </script>
+                <p><button onclick="return textToAudio(`{{oke_text}}`)" type="text" class="btn btn-outline-light">{%for j in range(num_text)%}
+        {{text_arr[j]}}
+        {%endfor%}</button><span>&nbsp; <img src="./static/vol.png" alt=""></span>
+                </p>
+                <!-- hien thi ky tu -->
+                <!-- {%for n in range(num_cut_cnt)%}
+        <img src={{filepath_cut_cnt_arr[n]}} alt=""><span>
+      {%endfor%} -->
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center mb-3">
+                <button type="button" class="btn btn-light" onclick="return window.history.back()">Back</button>
+            </div>
+
+        </div>
+
+    </div>
+</body>
